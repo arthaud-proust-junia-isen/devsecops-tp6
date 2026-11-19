@@ -1,0 +1,5 @@
+# consignes du TP, gardées en local
+TP6*.md
+
+__pycache__/
+.venv/
