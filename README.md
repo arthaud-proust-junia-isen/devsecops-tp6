@@ -57,11 +57,11 @@ Pour vérifier que Prometheus scrape bien l'API, taper `http_requests_total` dan
 | Latence P95            | `histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))` |
 | Mémoire                | `process_resident_memory_bytes{job="fastapi-app"}` |
 | CPU                    | `rate(process_cpu_seconds_total{job="fastapi-app"}[1m]) * 100` |
-| Taux d'erreurs 5xx     | `sum(rate(http_requests_total{status=~"5.."}[1m])) / sum(rate(http_requests_total[1m]))` |
+| Taux d'erreurs 5xx     | `(sum(rate(http_requests_total{status=~"5.."}[1m])) or vector(0)) / sum(rate(http_requests_total[1m]))` |
 
 Mémoire et CPU sont filtrés sur `job="fastapi-app"` parce que Prometheus expose lui aussi des métriques `process_*`. Sans filtre, les deux courbes se superposent.
 
-L'API ne renvoie aucune 5xx en fonctionnement normal, donc le taux d'erreurs reste à 0. Les 404 de la boucle ci-dessus sont des erreurs client et ne comptent pas.
+L'API ne renvoie aucune 5xx en fonctionnement normal. Sans le `or vector(0)`, le numérateur n'a aucune série et Grafana affiche « No data » au lieu de 0. Les 404 de la boucle ci-dessus sont des erreurs client et ne comptent pas.
 
 ## Écarts avec les consignes
 
