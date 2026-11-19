@@ -1,0 +1,31 @@
+{
+  "info": {
+    "name": "FastAPI Metrics App",
+    "description": "Collection pour tester FastAPI + Prometheus",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    { "name": "GET /", "request": { "method": "GET", "url": "http://localhost:8000/" } },
+    {
+      "name": "POST /items",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Test Item\"\n}" },
+        "url": "http://localhost:8000/items"
+      }
+    },
+    { "name": "GET /items/1", "request": { "method": "GET", "url": "http://localhost:8000/items/1" } },
+    {
+      "name": "PUT /items/1",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Updated Item\"\n}" },
+        "url": "http://localhost:8000/items/1"
+      }
+    },
+    { "name": "DELETE /items/1", "request": { "method": "DELETE", "url": "http://localhost:8000/items/1" } },
+    { "name": "GET /metrics", "request": { "method": "GET", "url": "http://localhost:8000/metrics" } }
+  ]
+}
